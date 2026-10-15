@@ -1,0 +1,15 @@
+[Unit]
+Description=Detector sísmico experimental (SeedLink)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/testrepo
+EnvironmentFile=/home/ubuntu/testrepo/sismo/.env
+ExecStart=/home/ubuntu/testrepo/.venv/bin/python -m sismo.detector
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
