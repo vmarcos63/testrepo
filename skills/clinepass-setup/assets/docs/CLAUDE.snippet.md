@@ -1,4 +1,5 @@
-## Protocolo ClinePass (pegar en el CLAUDE.md del proyecto)
+<!-- clinepass:start -->
+## Protocolo ClinePass
 
 Soy el arquitecto/auditor. No implemento en bloque: delego a `clite` según `docs/clinepass-strategy.md`.
 1. Clasifico el nivel (N0–N3) por riesgo; dominios críticos en `docs/dominios-criticos.md`.
@@ -7,3 +8,4 @@ Soy el arquitecto/auditor. No implemento en bloque: delego a `clite` según `doc
 4. Audito con `scripts/audit.sh <base> [allowlist]`; reviso según el nivel (§4). No leo logs completos.
 5. Si falla: escalo según §6. Registro cada tarea en `docs/ledger.csv`.
 6. Nunca hago push sin que el usuario lo pida.
+<!-- clinepass:end -->

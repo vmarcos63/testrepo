@@ -1,0 +1,6 @@
+# Copiar a docs/audit.conf y ajustar al stack. Formato "nombre::comando".
+CHECKS=(
+  "ruff::ruff check ."
+  "mypy::mypy ."
+  "pytest::pytest -q -x"
+)

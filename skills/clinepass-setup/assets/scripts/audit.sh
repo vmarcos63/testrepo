@@ -45,7 +45,13 @@ run() { # run <nombre> <cmd...>: muestra solo cola si falla
   say; say "== $n =="
   if out=$("$@" 2>&1); then say "OK"; else say "FAIL"; echo "$out" | tail -n 40; fail=1; fi
 }
-if [ -f package.json ]; then
+# Checks del proyecto: docs/audit.conf puede definir CHECKS=("nombre::comando" ...) (cualquier stack).
+CONF="$(dirname "$0")/../docs/audit.conf"
+if [ -f "$CONF" ]; then
+  # shellcheck disable=SC1090
+  source "$CONF"
+  for c in "${CHECKS[@]}"; do run "${c%%::*}" bash -c "${c#*::}"; done
+elif [ -f package.json ]; then
   for s in typecheck lint test; do
     grep -q "\"$s\"" package.json && run "npm run $s" npm run -s "$s"
   done
