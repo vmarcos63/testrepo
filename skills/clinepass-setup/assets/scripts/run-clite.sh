@@ -6,6 +6,7 @@ LEVEL="${1:?nivel N1|N2|N3}"; BRIEF="${2:?archivo brief}"; shift 2
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck disable=SC1091
 source "$ROOT/docs/modelos.env"
+TIMEOUT_SECONDS="${CLITE_TIMEOUT:-$TIMEOUT_SECONDS}"  # override: CLITE_TIMEOUT=90 scripts/run-clite.sh ...
 M="${LEVEL}_MODEL"; T="${LEVEL}_THINKING"
 MODEL="${!M:?nivel desconocido}"; THINK="${!T}"
 EXTRA=(); [ "${1:-}" = "--plan" ] && EXTRA+=(--plan)

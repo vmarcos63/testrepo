@@ -41,6 +41,18 @@ La lista concreta de dominios críticos del proyecto va en `docs/dominios-critic
 
 Ante duda: subir un nivel **solo** si hay una señal de N3. Si no, quedarse en el nivel inferior (la escalación cubre el error).
 
+### Ejecución directa (sin clite)
+
+**Por defecto se delega.** Claude implementa él mismo solo si se cumplen **todas**:
+1. Un solo archivo de producción y ≤15 líneas netas de cambio (sin contar tests).
+2. Cero señales de N3 (nada de `docs/dominios-criticos.md`, dinero, permisos, concurrencia, esquema DB, contratos públicos).
+3. No cambia firmas existentes (agregar un export nuevo está bien).
+4. Cero exploración: ya sabe archivo y cambio exactos, sin leer más de 2 archivos para decidir.
+5. Ya existe un check que lo valida, o el test a escribir es una aserción simple.
+
+No valen como razón: "es más rápido hacerlo yo", "el brief es más largo que el cambio", "es casi trivial". Si falta una condición, se delega.
+Controles: antes de hacerlo directo, Claude escribe una línea confirmando las 5 condiciones; se registra en el ledger con `modelo=claude-directo`; máximo 3 directas seguidas sin una delegada; si >30% de las tareas del ledger son directas, revisar los criterios. Planificar, escribir briefs/tests de aceptación y auditar son trabajo de Claude por definición y no cuentan como tarea directa.
+
 ## 3. Brief de tarea (contrato con clite)
 
 Todo encargo se hace con `docs/templates/brief.md`: objetivo, archivos en/fuera de alcance, contexto mínimo pegado, criterios verificables, comandos de verificación, prohibiciones y formato de reporte (≤15 líneas).
